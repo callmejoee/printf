@@ -33,7 +33,7 @@ int _printf(const char *format, ...)
 					while (str != NULL && str[j] != '\0')
 					{
 						++char_count;
-						_putchar(str[i]);
+						_putchar(str[j]);
 						j++;
 					}
 					break;
