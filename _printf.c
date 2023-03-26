@@ -10,21 +10,16 @@
  */
 int _printf(const char *format, ...)
 {
-	char *tmp;
-	char *str, *new_string, c[1];
+	char *tmp, *str, *new_string, c[1];
 	int format_length, i, len, m;
-
 	va_list vl;
 
 	va_start(vl, format);
-
 	tmp = (char *)format;
 	if (tmp[0] == '%' && tmp != NULL)
 	{
 		if (tmp[1] == 's')
-		{
 			str = va_arg(vl, char*);
-		}
 		write(1, str, get_length(str));
 	}
 	for (m = 0; m < get_flag_number(tmp); m++)
