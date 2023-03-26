@@ -13,7 +13,7 @@ int main(void)
 	
 	len = _printf("%crahi%c", 'b', 'm');
 	_putchar('\n');
-	printf("length = %d", len);
+	printf("length = %d\n", len);
 
 
 	return (0);
