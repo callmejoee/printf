@@ -1,8 +1,11 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "main.h"
+#include <stdio.h>
 
+int get_length(char *s);
+char *concatenat(char *s1, int start, int end, char *s2);
+int get_flag_number(char *s);
 /**
  * _printf - function that clone printf();
  * @format: format specifier
@@ -10,19 +13,23 @@
  */
 int _printf(const char *format, ...)
 {
-	char *tmp, *str, *new_string, c[1];
-	int format_length, i, len, m;
 	va_list vl;
 
 	va_start(vl, format);
-	tmp = (char *)format;
+
+	char *tmp = (char *)format;
+	char *str, *new_string, c[1];
+	int format_length, i, len;
+
 	if (tmp[0] == '%' && tmp != NULL)
 	{
 		if (tmp[1] == 's')
+		{
 			str = va_arg(vl, char*);
+		}
 		write(1, str, get_length(str));
 	}
-	for (m = 0; m < get_flag_number(tmp); m++)
+	for (int m = 0; m < get_flag_number(tmp); m++)
 	{
 		format_length = get_length(tmp);
 		while (i < format_length)
@@ -41,16 +48,24 @@ int _printf(const char *format, ...)
 					new_string = concatenat(tmp, 0, i, c);
 					tmp = new_string;
 				}
+				else if (tmp[i + 1] == '%')
+				{
+					char *piece  = "%";
+
+					new_string = concatenat(tmp, 0, i, piece);
+					tmp = new_string;
+				}
 			}
 			i++;
 		}
 	}
 	va_end(vl);
 	if (get_flag_number(tmp) == 0)
-		new_string = (char *)format;
+		new_string = tmp;
 	len = write(1, new_string, get_length(new_string));
 	return (len);
 }
+
 /**
  * get_length- functio got get the length of a string;
  * @s: string
@@ -113,7 +128,7 @@ int get_flag_number(char *s)
 		if (*s == '%')
 		{
 			s++;
-			if (*s == 'c' || *s == 's')
+			if (*s == 'c' || *s == 's' || *s == '%')
 				number++;
 		}
 		s++;
