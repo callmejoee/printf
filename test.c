@@ -9,7 +9,7 @@
 
 int main(void)
 {
-	int len, len2;
+	int len;
 	
 	len = _printf("%crahi%c", 'b', 'm');
 	_putchar('\n');
