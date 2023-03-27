@@ -16,8 +16,9 @@ int _printf(const char *format, ...)
 	int i = 0, len, flag;
 	va_list vl;
 
+	if (format == NULL)
+		return (0);
 	va_start(vl, format);
-
 	tmp = (char *)format;
 
 	while (tmp[i] != '\0')
@@ -26,13 +27,9 @@ int _printf(const char *format, ...)
 		{
 			flag++;
 			if (tmp[i + 1] == 's')
-			{
 				tmp = replace(tmp, i, i + 2, va_arg(vl, char *));
-			}
 			else if (tmp[i + 1] == '%')
-			{
 				tmp = replace(tmp, i, i + 2, "%");
-			}
 			else if (tmp[i + 1] == 'c')
 			{
 				c[0] = va_arg(vl, int);
