@@ -40,6 +40,8 @@ int _printf(const char *format, ...)
 				sprintf(str, "%d", va_arg(vl, int));
 				tmp = replace(tmp, i, i + 2, str);
 			}
+			else if (tmp[i + 1] == '\0' || tmp[i + 1] == ' ')
+				tmp = replace(tmp, i, i + 1, " ");
 		}
 		i++;
 	}
@@ -48,8 +50,6 @@ int _printf(const char *format, ...)
 		len = write(1, tmp, get_length(tmp));
 	if (flag != 0)
 		free(tmp);
-	if (tmp == NULL)
-		return (0);
 	return (len);
 }
 
