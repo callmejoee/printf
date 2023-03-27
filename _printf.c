@@ -80,13 +80,15 @@ int get_length(char *s)
  */
 char *replace(char *s1, int start, int end, char *s2)
 {
+	int s2_length, s1_length, length, i, j, k;
+	char *new_string;
+
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	int s2_length = get_length(s2);
-	int s1_length = get_length(s1);
-	int length = s1_length + s2_length;
-	int i, j, k;
-	char *new_string = malloc(length * sizeof(char) - 2);
+	s2_length = get_length(s2);
+	s1_length = get_length(s1);
+	length = s1_length + s2_length;
+	new_string = malloc(length * sizeof(char) - 2);
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
