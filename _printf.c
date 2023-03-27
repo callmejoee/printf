@@ -1,52 +1,103 @@
+#include <unistd.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "main.h"
 
 /**
- * _printf - function to be like printf
- *
+ * _printf - function that clone printf();
  * @format: format specifier
- *
- * Return: length
+ * Return: length of sormat string
  */
-
 int _printf(const char *format, ...)
 {
-	int char_count = 0, i = 0;
-	va_list ptr;
+	char *tmp;
+	char c[1];
+	int i = 0, len;
+	va_list vl;
 
-	va_start(ptr, format);
-	while (format[i] != '\0' && format != NULL)
+	va_start(vl, format);
+
+	tmp = (char *)format;
+
+	while (tmp[i] != '\0')
 	{
-		if (format[i] == '%')
+		if (tmp[i] == '%')
 		{
-			++i;
-			while (format[i] == ' ')
-				++i;
-			switch (format[i])
+			if (tmp[i + 1] == 's')
 			{
-				case 'c':
-					++char_count;
-					_putchar(va_arg(ptr, int));
-					break;
-				case 's':
-					char_count += print_str(va_arg(ptr, char *));
-					break;
-				case 'i':
-				case 'd':
-					char_count += print_num(va_arg(ptr, int));
-					break;
-				case 'b':
-					char_count += print_bin(va_arg(ptr, int));
-					break;
-				default:
-					continue;
+				tmp = replace(tmp, i, i + 2, va_arg(vl, char *));
 			}
-		}
-		else
-		{
-			++char_count;
-			_putchar(format[i]);
+			else if (tmp[i + 1] == '%')
+			{
+				tmp = replace(tmp, i, i + 2, "%");
+			}
+			else if (tmp[i + 1] == 'c')
+			{
+				c[0] = va_arg(vl, int);
+				tmp = replace(tmp, i, i + 2, c);
+			}
+			else if (tmp[i + 1] == 'd')
+			{
+				char str[5];
+
+				sprintf(str, "%d", va_arg(vl, int));
+				tmp = replace(tmp, i, i + 2, str);
+			}
 		}
 		i++;
 	}
-	return (char_count);
+	va_end(vl);
+	len = write(1, tmp, get_length(tmp));
+	free(tmp);
+	return (len);
+}
+
+/**
+ * get_length- functio got get the length of a string;
+ * @s: string
+ * Return: length of a string
+ */
+int get_length(char *s)
+{
+	int length = 0;
+
+	while (*s != '\0')
+	{
+		length++;
+		s++;
+	}
+	s -= length;
+	return (length);
+}
+/**
+ * replace- function that concatenate two string
+ * @s1: first string.
+ * @start:input.
+ * @end: input.
+ * @s2: string two.
+ * Return: the concatenate of two string.
+ */
+char *replace(char *s1, int start, int end, char *s2)
+{
+	int s2_length = get_length(s2);
+	int s1_length = get_length(s1);
+	int length = s1_length + s2_length;
+	int i, j, k;
+	char *new_string = malloc(length * sizeof(char) - 2);
+
+	for (i = 0; i < start; i++)
+	{
+		new_string[i] = s1[i];
+	}
+
+	for (j = 0; j < s2_length; j++)
+	{
+		new_string[i++] = s2[j];
+	}
+	for (k = end; k < s1_length; k++)
+	{
+		new_string[i++] = s1[k];
+	}
+	return (new_string);
 }
