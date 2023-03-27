@@ -12,6 +12,7 @@ int _printf(const char *format, ...)
 {
 	int char_count = 0;
 	int i = 0;
+	int num;
 	char *str;
 	va_list ptr;
 
@@ -22,6 +23,8 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			++i;
+			while (format[i] == ' ')
+				++i;
 			switch (format[i])
 			{
 				case 'c':
@@ -32,6 +35,13 @@ int _printf(const char *format, ...)
 					str = va_arg(ptr, char *);
 					char_count += print_str(str);
 					break;
+				case 'i':
+				case 'd':
+					num = va_arg(ptr, int);
+					char_count += print_num(num);
+					break;
+				default:
+					continue;
 			}
 		}
 		else
