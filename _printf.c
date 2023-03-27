@@ -12,8 +12,8 @@
 int _printf(const char *format, ...)
 {
 	char *tmp;
-	char c[1];
-	int i = 0, len;
+	char c[1], str[5];
+	int i = 0, len, flag;
 	va_list vl;
 
 	va_start(vl, format);
@@ -24,6 +24,7 @@ int _printf(const char *format, ...)
 	{
 		if (tmp[i] == '%')
 		{
+			flag++;
 			if (tmp[i + 1] == 's')
 			{
 				tmp = replace(tmp, i, i + 2, va_arg(vl, char *));
@@ -39,8 +40,6 @@ int _printf(const char *format, ...)
 			}
 			else if (tmp[i + 1] == 'd')
 			{
-				char str[5];
-
 				sprintf(str, "%d", va_arg(vl, int));
 				tmp = replace(tmp, i, i + 2, str);
 			}
@@ -49,7 +48,8 @@ int _printf(const char *format, ...)
 	}
 	va_end(vl);
 	len = write(1, tmp, get_length(tmp));
-	free(tmp);
+	if (flag != 0)
+		free(tmp);
 	return (len);
 }
 
