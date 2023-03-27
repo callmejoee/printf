@@ -12,7 +12,7 @@
 int _printf(const char *format, ...)
 {
 	char *tmp;
-	char c[1], str[5];
+	char c[1], str[10];
 	int i = 0, len, flag;
 	va_list vl;
 
@@ -35,7 +35,7 @@ int _printf(const char *format, ...)
 				c[0] = va_arg(vl, int);
 				tmp = replace(tmp, i, i + 2, c);
 			}
-			else if (tmp[i + 1] == 'd')
+			else if (tmp[i + 1] == 'd' || tmp[i + 1] == 'i')
 			{
 				sprintf(str, "%d", va_arg(vl, int));
 				tmp = replace(tmp, i, i + 2, str);
