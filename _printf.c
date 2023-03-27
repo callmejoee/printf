@@ -21,7 +21,7 @@ int _printf(const char *format, ...)
 	va_start(vl, format);
 	tmp = (char *)format;
 
-	while (tmp[i] != '\0')
+	while (tmp != NULL && tmp[i] != '\0')
 	{
 		if (tmp[i] == '%')
 		{
@@ -44,9 +44,12 @@ int _printf(const char *format, ...)
 		i++;
 	}
 	va_end(vl);
-	len = write(1, tmp, get_length(tmp));
+	if (tmp != NULL)
+		len = write(1, tmp, get_length(tmp));
 	if (flag != 0)
 		free(tmp);
+	if (tmp == NULL)
+		return (0);
 	return (len);
 }
 
@@ -77,11 +80,16 @@ int get_length(char *s)
  */
 char *replace(char *s1, int start, int end, char *s2)
 {
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
 	int s2_length = get_length(s2);
 	int s1_length = get_length(s1);
 	int length = s1_length + s2_length;
 	int i, j, k;
 	char *new_string = malloc(length * sizeof(char) - 2);
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
 
 	for (i = 0; i < start; i++)
 	{
