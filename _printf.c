@@ -52,6 +52,11 @@ int _printf(const char *format, ...)
 				len = print_bin(va_arg(arg, int));
 				i += 2;
 			}
+			else if (tmp[i + 1] == 'r')
+                        {
+                                len = print_rev(va_arg(arg, char *));
+                                i += 2;
+                        }
 		}
 		else
 		{
