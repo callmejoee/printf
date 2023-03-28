@@ -34,4 +34,5 @@ int print_num(int x)
 		return (length);
 	}
 	length = print_num_helper(x);
+	return (length);
 }
