@@ -16,6 +16,6 @@ int printstring(char *str);
 int print_str(char *str);
 int print_num(int num);
 int print_bin(int num);
-int print_rev(char *);
+int print_rev(char *str);
 
 #endif

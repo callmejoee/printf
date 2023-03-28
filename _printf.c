@@ -7,6 +7,7 @@ int _printf(const char *format, ...);
 int printstring(char *str);
 int print_num(int x);
 int print_bin(int num);
+int print_rev(char *);
 
 /**
  * _printf - function that clone printf();
@@ -49,12 +50,12 @@ int _printf(const char *format, ...)
 			}
 			else if (tmp[i + 1] == 'b')
 			{
-				len = print_bin(va_arg(arg, int));
+				len += print_bin(va_arg(arg, int));
 				i += 2;
 			}
 			else if (tmp[i + 1] == 'r')
                         {
-                                len = print_rev(va_arg(arg, char *));
+                                len += print_rev(va_arg(arg, char *));
                                 i += 2;
                         }
 		}
