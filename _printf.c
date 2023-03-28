@@ -120,7 +120,7 @@ int print_num(int x)
 	if (x < 0)
 	{
 		printchar('-');
-		length = print_num_helper(-x);
+		length = 1 + print_num_helper(-x);
 		return (length);
 	}
 	length = print_num_helper(x);
