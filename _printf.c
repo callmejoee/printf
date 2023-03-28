@@ -1,12 +1,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "main.h"
 
 int printchar(char c);
 int _printf(const char *format, ...);
 int printstring(char *str);
 int print_num(int x);
+int print_bin(int num);
 
 /**
  * _printf - function that clone printf();
@@ -131,4 +131,36 @@ int print_num(int x)
 	}
 	length = print_num_helper(x);
 	return (length);
+}
+/**
+ * print_bin - function that takes number and converts it to binary
+ *
+ * @num: number in decimal
+ *
+ * Return: count of printed num
+ *
+ */
+
+int print_bin(int num)
+{
+	int i = 0, j = 0, count = 0, bin_array[32];
+
+	if (num == 0)
+	{
+		++count;
+		printchar('0');
+	}
+	while (num > 0)
+	{
+		bin_array[i] = num % 2;
+		num = num / 2;
+		i++;
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		++count;
+		printchar(bin_array[j] + '0');
+	}
+
+	return (count-1);
 }
