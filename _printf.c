@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 int printchar(char c);
 int _printf(const char *format, ...);
@@ -170,3 +171,5 @@ int print_bin(int num)
 
 	return (count - 1);
 }
+
+

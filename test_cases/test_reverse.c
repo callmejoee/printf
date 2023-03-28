@@ -1,4 +1,3 @@
-#include "../main.h"
 #include "../_printf.c"
 
 int main(void)
