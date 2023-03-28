@@ -21,4 +21,5 @@ int print_rev(char * str)
 		_putchar(str[len - i]);
 		i++;
 	}
+	return (count);
 }
