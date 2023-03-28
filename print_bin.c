@@ -30,5 +30,5 @@ int print_bin(int num)
 		printchar(bin_array[j] + '0');
 	}
 
-	return (count-1);
+	return (count - 1);
 }

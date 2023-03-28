@@ -1,5 +1,4 @@
-#include <unistd.h>
-
+#include "main.h"
 /**
  * printchar - function print c to stdou;
  * @c: character
@@ -8,5 +7,5 @@
 
 int printchar(char c)
 {
-	return (write(1, &c, 1));
+        return (write(1, &c, 1));
 }
