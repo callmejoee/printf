@@ -11,9 +11,8 @@
 
 int print_bin(int num)
 {
-	int i = 0, j = 0, count = 0;
-	int bin_array[32];
-	
+	int i = 0, j = 0, count = 0, bin_array[32];
+
 	if (num == 0)
 	{
 		++count;
