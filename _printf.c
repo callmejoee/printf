@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include "main.h"
@@ -6,6 +5,7 @@
 int printchar(char c);
 int _printf(const char *format, ...);
 int printstring(char *str);
+int print_num(int x);
 
 /**
  * _printf - function that clone printf();
@@ -41,6 +41,11 @@ int _printf(const char *format, ...)
 				len += printchar('%');
 				i += 2;
 			}
+			else if (tmp[i + 1] == 'd' || tmp[i + 1] == 'i')
+			{
+				len += print_num(va_arg(arg, int));
+				i += 2;
+			}
 		}
 		else
 		{
@@ -49,32 +54,5 @@ int _printf(const char *format, ...)
 		}
 	}
 	va_end(arg);
-	return (len);
-}
-/**
- * printchar - function print c to stdou;
- * @c: character
- * Return: return 1 length of char.
- */
-int printchar(char c)
-{
-	return (write(1, &c, 1));
-}
-/**
- * printstring - function print string to stdou;
- * @str: string
- * Return: return length of str.
- */
-int printstring(char *str)
-{
-	int len = 0, i = 0;
-
-	if (str == NULL)
-		return (0);
-	while (str[i] != '\0')
-	{
-		len += printchar(str[i]);
-		i++;
-	}
 	return (len);
 }
