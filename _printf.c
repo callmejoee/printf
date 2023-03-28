@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "main.h"
 
 int printchar(char c);
 int _printf(const char *format, ...);
@@ -44,6 +45,11 @@ int _printf(const char *format, ...)
 			else if (tmp[i + 1] == 'd' || tmp[i + 1] == 'i')
 			{
 				len += print_num(va_arg(arg, int));
+				i += 2;
+			}
+			else if (tmp[i + 1] == 'b')
+			{
+				len = print_bin(va_arg(arg, int));
 				i += 2;
 			}
 		}

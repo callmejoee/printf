@@ -16,7 +16,7 @@ int print_bin(int num)
 	if (num == 0)
 	{
 		++count;
-		_putchar('0');
+		printchar('0');
 	}
 	while (num > 0)
 	{
@@ -27,7 +27,7 @@ int print_bin(int num)
 	for (j = i - 1; j >= 0; j--)
 	{
 		++count;
-		_putchar(bin_array[j] + '0');
+		printchar(bin_array[j] + '0');
 	}
 
 	return (count);
