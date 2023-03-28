@@ -1,8 +1,11 @@
 #include <unistd.h>
 #include <stdarg.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include "main.h"
+
+int printchar(char c);
+int _printf(const char *format, ...);
+int printstring(char *str);
 
 /**
  * _printf - function that clone printf();
@@ -12,99 +15,66 @@
 int _printf(const char *format, ...)
 {
 	char *tmp;
-	char c[1], str[10];
-	int i = 0, len, flag;
-	va_list vl;
+	int len = 0, i = 0;
+	va_list arg;
 
+	va_start(arg, format);
 	if (format == NULL)
 		return (0);
-	va_start(vl, format);
 	tmp = (char *)format;
-
-	while (tmp != NULL && tmp[i] != '\0')
+	while (tmp[i] != '\0')
 	{
 		if (tmp[i] == '%')
 		{
-			flag++;
-			if (tmp[i + 1] == 's')
-				tmp = replace(tmp, i, i + 2, va_arg(vl, char *));
+			if (tmp[i + 1] == 'c')
+			{
+				len += printchar(va_arg(arg, int));
+				i += 2;
+			}
+			else if (tmp[i + 1] == 's')
+			{
+				len += printstring(va_arg(arg, char *));
+				i += 2;
+			}
 			else if (tmp[i + 1] == '%')
-				tmp = replace(tmp, i, i + 2, "%");
-			else if (tmp[i + 1] == 'c')
 			{
-				c[0] = va_arg(vl, int);
-				tmp = replace(tmp, i, i + 2, c);
+				len += printchar('%');
+				i += 2;
 			}
-			else if (tmp[i + 1] == 'd' || tmp[i + 1] == 'i')
-			{
-				sprintf(str, "%d", va_arg(vl, int));
-				tmp = replace(tmp, i, i + 2, str);
-			}
-			else if (tmp[i + 1] == '\0' || tmp[i + 1] == ' ')
-				tmp = replace(tmp, i, i + 1, " ");
 		}
-		i++;
+		else
+		{
+			len += printchar(tmp[i]);
+			i++;
+		}
 	}
-	va_end(vl);
-	if (tmp != NULL)
-		len = write(1, tmp, get_length(tmp));
-	if (flag != 0)
-		free(tmp);
+	va_end(arg);
 	return (len);
 }
-
 /**
- * get_length- functio got get the length of a string;
- * @s: string
- * Return: length of a string
+ * printchar - function print c to stdou;
+ * @c: character
+ * Return: return 1 length of char.
  */
-int get_length(char *s)
+int printchar(char c)
 {
-	int length = 0;
-
-	while (*s != '\0')
-	{
-		length++;
-		s++;
-	}
-	s -= length;
-	return (length);
+	return (write(1, &c, 1));
 }
 /**
- * replace- function that concatenate two string
- * @s1: first string.
- * @start:input.
- * @end: input.
- * @s2: string two.
- * Return: the concatenate of two string.
+ * printstring - function print string to stdou;
+ * @str: string
+ * Return: return length of str.
  */
-char *replace(char *s1, int start, int end, char *s2)
+int printstring(char *str)
 {
-	int s2_length, s1_length, length, i, j, k;
-	char *new_string;
+	int len = 0, i = 0;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	s2_length = get_length(s2);
-	s1_length = get_length(s1);
-	length = s1_length + s2_length;
-	new_string = malloc(length * sizeof(char) - 2);
-
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-
-	for (i = 0; i < start; i++)
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
 	{
-		new_string[i] = s1[i];
+		len += printchar(str[i]);
+		i++;
 	}
-
-	for (j = 0; j < s2_length; j++)
-	{
-		new_string[i++] = s2[j];
-	}
-	for (k = end; k < s1_length; k++)
-	{
-		new_string[i++] = s1[k];
-	}
-	return (new_string);
+	return (len);
 }
