@@ -97,8 +97,8 @@ int print_num_helper(int x)
 	int i;
 
 	if (x == 0)
-		return (1);
-	i += print_num_helper(x / 10);
+		return (0);
+	i = 1 + print_num_helper(x / 10);
 	c = x % 10 + '0';
 	printchar(c);
 	return (i);
@@ -112,6 +112,11 @@ int print_num(int x)
 {
 	int length;
 
+	if (x == 0)
+	{
+		printchar('0');
+		return (1);
+	}
 	if (x < 0)
 	{
 		printchar('-');
