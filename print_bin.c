@@ -9,7 +9,7 @@
  *
  */
 
-int print_bin(int num)
+int print_bin(unsigned int num)
 {
 	int i = 0, j = 0, count = 0, bin_array[32];
 
