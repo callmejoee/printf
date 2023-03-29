@@ -41,7 +41,7 @@ int _printf(const char *format, ...)
 			}
 			else if (tmp[i + 1] == 'b')
 			{
-				len += print_bin(va_arg(arg, int));
+				len += print_bin(va_arg(arg, unsigned int));
 				i += 2;
 			}
 			else if (tmp[i + 1] == 'r')
