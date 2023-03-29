@@ -45,15 +45,15 @@ int _printf(const char *format, ...)
 				i += 2;
 			}
 			else if (tmp[i + 1] == 'r')
-                        {
-                                len += print_rev(va_arg(arg, char *));
-                                i += 2;
-                        }
+			{
+				len += print_rev(va_arg(arg, char *));
+				i += 2;
+			}
 			else if (tmp[i + 1] == 'R')
-                        {
-                                len += print_rot(va_arg(arg, char *));
-                                i += 2;
-                        }
+			{
+				len += print_rot(va_arg(arg, char *));
+				i += 2;
+			}
 		}
 		else
 		{

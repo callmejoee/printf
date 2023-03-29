@@ -4,8 +4,7 @@
  * @c: character
  * Return: return 1 length of char.
  */
-
 int printchar(char c)
 {
-        return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
